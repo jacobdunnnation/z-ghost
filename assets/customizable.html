@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GhostLink</title>
+    <title>Ghost+</title>
     <style>
         :root {
             --bg: #000000;
@@ -405,7 +405,7 @@
             { name: "about:blank", title: "about:blank", icon: "https://www.none" }
         ]; //Customize your tab cloaking presets
 
-        let shortcuts = JSON.parse(localStorage.getItem('ghostlink_shortcuts')) || { home: 'H', panic: 'P' };
+        let shortcuts = JSON.parse(localStorage.getItem('ghost+_shortcuts')) || { home: 'H', panic: 'P' };
 
         // --- NAVIGATION --- Add your pages here
         function nav(page) {
@@ -465,7 +465,7 @@
                 if (key !== "ALT" && key !== "CONTROL" && key !== "SHIFT") {
                     shortcuts[action] = key;
                     input.value = key;
-                    localStorage.setItem('ghostlink_shortcuts', JSON.stringify(shortcuts));
+                    localStorage.setItem('ghost+_shortcuts', JSON.stringify(shortcuts));
                     window.removeEventListener('keydown', listener);
                     input.blur();
                 }
@@ -475,7 +475,7 @@
 
         function resetShortcuts() {
             shortcuts = { home: 'H', panic: 'P' };
-            localStorage.setItem('ghostlink_shortcuts', JSON.stringify(shortcuts));
+            localStorage.setItem('ghost+_shortcuts', JSON.stringify(shortcuts));
             syncShortcutUI();
         }
 
@@ -488,13 +488,13 @@
         function exportData() {
             const data = {
                 shortcuts: shortcuts,
-                config: JSON.parse(localStorage.getItem('ghostlink_config'))
+                config: JSON.parse(localStorage.getItem('ghost+_config'))
             };
             const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `ghostlink_backup_${new Date().toISOString().slice(0,10)}.json`;
+            a.download = `ghost+_backup_${new Date().toISOString().slice(0,10)}.json`;
             a.click();
         }
 
@@ -507,10 +507,10 @@
                     const data = JSON.parse(e.target.result);
                     if (data.shortcuts) {
                         shortcuts = data.shortcuts;
-                        localStorage.setItem('ghostlink_shortcuts', JSON.stringify(shortcuts));
+                        localStorage.setItem('ghost+_shortcuts', JSON.stringify(shortcuts));
                     }
                     if (data.config) {
-                        localStorage.setItem('ghostlink_config', JSON.stringify(data.config));
+                        localStorage.setItem('ghost+_config', JSON.stringify(data.config));
                     }
                     alert("Import successful! Reloading...");
                     location.reload();
@@ -553,7 +553,7 @@
         function syncColor(val) { document.getElementById('theme-color').value = val; applyTheme(); }
         
         function saveConfig() {
-            localStorage.setItem('ghostlink_config', JSON.stringify({
+            localStorage.setItem('ghost+_config', JSON.stringify({
                 title: document.getElementById('cloak-title').value,
                 icon: document.getElementById('cloak-icon').value,
                 color: document.getElementById('theme-color').value,
@@ -603,7 +603,7 @@
                 presetList.appendChild(btn);
             });
 
-            const saved = JSON.parse(localStorage.getItem('ghostlink_config'));
+            const saved = JSON.parse(localStorage.getItem('ghost+_config'));
             if (saved) {
                 document.getElementById('cloak-title').value = saved.title || "";
                 document.getElementById('cloak-icon').value = saved.icon || "";
